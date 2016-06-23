@@ -8,7 +8,7 @@ angular.module('saccoApp', [
   'ngMessages',
   'ui.router',
   'ngMaterial',
-  'uiGmapgoogle-maps'
+  //'uiGmapgoogle-maps'
 ])
   .config(function($mdIconProvider) {
     $mdIconProvider
