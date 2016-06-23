@@ -1,13 +1,39 @@
 <div ng-include="'components/shell/shell.html'"></div>
 <div class="col-md-12" data-ng-controller="UserCtrl">
-	<form class="form" name="form" ng-submit="submit(form)">
+	<div class="input-group">
+		<label>Name : {{user.name}}</label>
+	</div>
+	<div class="input-group">
+		<label>Phone : {{user.phone}}</label>
+	</div>
+	<div class="input-group" ng-show="user.admin">
+		<label>Admin</label>
+	</div>
+	<div class="input-group" ng-show="user.sacco">
+		<label>Sacco : {{user.sacco.name}}</label>
+	</div>
+
+	<!--
+	<form class="form" name="findForm" ng-submit="find(findForm)">
+		<div class="input-group">
+		  <input type="text" ng-model="name" class="form-control" placeholder="name" required/>
+		  <input type="text" ng-model="phone" class="form-control" placeholder="phone" required/>
+		  <span class="input-group-btn">
+		  	<md-button class="md-raised" type="submit">Find User</md-button>
+		  </span>
+		</div>
+	</form>
+	<form class="form" name="createForm" ng-submit="create(createForm)">
 		<div class="input-group">
 		  <input type="text" ng-model="name" class="form-control" placeholder="name" required/>
 		  <input type="text" ng-model="phone" class="form-control" placeholder="phone" required/>
 		  <input type="password" ng-model="password" class="form-control" placeholder="password" required/>
 		  <span class="input-group-btn">
-		    <button class="btn btn-default" type="submit">User Register</button>
+		    <button class="btn btn-default" type="submit">Create User</button>
 		  </span>
 		</div>
 	</form>
+	-->
+
+
 </div>

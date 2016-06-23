@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./maize.controller');
+var controller = require('./product.controller');
 
 var router = express.Router();
 

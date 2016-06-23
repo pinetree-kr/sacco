@@ -18,7 +18,9 @@ angular.module('saccoApp')
 		$scope.find = function(form){
 			if(form.$valid){
 				$scope.sacco.name = $scope.name;
-				getSacco($scope.sacco);
+				getSacco($scope.sacco, function(sacco){
+					console.log(sacco);
+				});
 			}
 		}
 		$scope.create = function(form){
@@ -31,33 +33,108 @@ angular.module('saccoApp')
 				$scope.user.name = $scope.username;
 				$scope.user.phone = $scope.userphone;
 
-				getUser($scope.user);
+				getUser($scope.user, function(user){
+					user.admin = true;
+					$http.put('/api/users/'+user._id, user)
+					.success(function(res){
+						//console.log(res);
+						$scope.sacco.admin = user._id;
+
+						//$scope.sacco.users.push(user._id);
+						createSacco($scope.sacco, function(sacco){
+							//console.log(res);
+							//alert('success');
+							joinSacco(sacco, user, function(res){
+								console.log(res);
+							});
+						});
+					})
+					.error(handleError);
+				});
 			}
 		}
 
-		var createSacco = function(data){
-			sacco.create(data,
-				function(res){
-					console.log(res);
-					alert('success');
-				}, handleError);
+		$scope.join = function(form){
+			
+			if(form.$valid){
+				$scope.sacco.name = $scope.name;
+
+				$scope.user.name = $scope.username;
+				$scope.user.phone = $scope.userphone;
+
+				getSacco($scope.sacco, function(sacco){
+					//getUser
+					getUser($scope.user, function(user){
+						var arr = sacco.users.filter(function(item){
+							return item._id === user._id;
+						});
+						if(arr.length===0){
+							/*/
+							$http.post('/api/saccos/'+sacco._id+'/join',{
+								user:user._id
+							})
+							.success(function(sacco){
+								console.log(sacco);
+							})
+							.error(handleError);
+							/**/
+							joinSacco(sacco, user, function(sacco){
+								console.log(sacco);
+							});
+						}else{
+							console.log('already joined');
+						}
+						//sacco.users.push(user._id);
+
+					})
+				});
+			}
+		}
+
+		$scope.showProduct = function(form){
+			if(form.$valid){
+				$scope.sacco.name = $scope.name;
+
+				getSacco($scope.sacco, function(sacco){
+					getProduct(sacco, function(products){
+						console.log(products);
+						alert(products.length);
+					});
+				})
+			}
+		}
+
+		var createSacco = function(data, next){
+			sacco.create(data, next, handleError);
 		};
 
-		var getUser = function(data){
-			$http.post('/api/users/check', data)
-			.success(function(user) {
-				user.admin = true;
-				$http.put('/api/users/'+user._id, user)
-				.success(function(res){
-					//console.log(res);
-					$scope.sacco.admin = user._id;
-					$scope.sacco.users.push(user._id);
-					createSacco($scope.sacco);
-				})
-				.error(handleError);
+		var getProduct = function(sacco, next){
+			$http.get('/api/saccos/'+sacco._id+'/products')
+			.success(next)
+			.error(handleError);
+		}
 
-				//$scope.sacco.admin = user._id;
+		var getSacco = function(data, next){
+			$http.post('/api/saccos/find', {
+				name:data.name
 			})
+			.success(function(sacco){
+				next(sacco);
+			})
+			.error(handleError);
+		}
+
+		var joinSacco = function(sacco, user, next){
+			$http.post('/api/saccos/'+sacco._id+'/join', {
+				user: user._id
+			})
+			.success(next)
+			.error(handleError);
+		}
+
+		var getUser = function(data, next){
+			$http.post('/api/users/check', data)
+			.success(next)
 			.error(handleError);
 		}
 

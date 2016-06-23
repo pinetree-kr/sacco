@@ -1,10 +1,17 @@
 <div ng-controller="ShellCtrl" class="main-shell">
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
     <md-toolbar class="md-tall md-accent">
-      
+      Manager
     </md-toolbar>
-    <md-content layout-padding>
-
+    <md-content layout-padding layout="row">
+      <md-button ng-click="moveUser()" class="md-primary flex" ng-style="{'text-align':'left'}" hide-gt-md>
+        User Info
+      </md-button>
+    </md-content>
+    <md-content layout-padding layout="row">
+      <md-button ng-click="moveSacco()" class="md-primary flex" ng-style="{'text-align':'left'}" hide-gt-md>
+        Sacco
+      </md-button>
     </md-content>
   </md-sidenav>
   <md-toolbar>
@@ -13,9 +20,32 @@
         <md-icon md-svg-icon="assets/icons/menu.svg"></md-icon>
       </md-button>
       <h2>
-          <span>sacco</span>
+          <a href="/"><span>sacco</span></a>
         </h2>
       <span flex=""></span>
+      <md-menu>
+        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+          <md-icon md-menu-origin md-svg-icon="assets/icons/dots-vertical.svg"></md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item ng-hide="isLogin()">
+            <md-button ng-click="showLoginDialog($event)">
+              Log In
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-show="isLogin()">
+            <md-button ng-click="logout()">
+              Log Out
+            </md-button>
+          </md-menu-item>
+          <md-menu-item ng-hide="isLogin()">
+            <md-button ng-click="showJoinDialog($event)">
+              Join
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <!--
       <md-menu>
         <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
           <md-icon md-menu-origin md-svg-icon="assets/icons/dots-vertical.svg"></md-icon>
@@ -48,6 +78,7 @@
           
         </md-menu-content>
       </md-menu>
+      -->
     </div>
   </md-toolbar>
 </div>

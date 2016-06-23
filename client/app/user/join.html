@@ -1,0 +1,13 @@
+<div ng-include="'components/shell/shell.html'"></div>
+<div class="col-md-12">
+	<form class="form" name="form" ng-submit="submit(form)">
+		<div class="input-group">
+			<input type="text" ng-model="name" class="form-control" placeholder="name" required/>
+			<input type="text" ng-model="phone" class="form-control" placeholder="phone#" required/>
+			<input type="password" ng-model="password" class="form-control" placeholder="password" required/>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Join</button>
+			</span>
+		</div>
+	</form>
+</div>

@@ -3,7 +3,7 @@
 </style>
 <div ng-include="'components/shell/shell.html'"></div>
 <div class="col-md-12" data-ng-controller="SaccoCtrl">
-	<form class="form" name="form" ng-submit="find(form)">
+	<form class="form" name="findForm" ng-submit="find(findForm)">
 		<div class="input-group">
 			<input type="text" ng-model="name" class="form-control" placeholder="sacco name" required/>
 			<span class="input-group-btn">
@@ -11,7 +11,7 @@
 			</span>
 		</div>
 	</form>
-	<form class="form" name="form" ng-submit="create(form)">
+	<form class="form" name="createForm" ng-submit="create(createForm)">
 		<div class="input-group">
 			<input type="text" ng-model="name" class="form-control" placeholder="sacco name" required/>
 			<input type="text" ng-model="coord" class="form-control" placeholder="coord" required/>
@@ -22,4 +22,29 @@
 			</span>
 		</div>
 	</form>
+	<form class="form" name="joinForm" ng-submit="join(joinForm)">
+		<div class="input-group">
+			<input type="text" ng-model="name" class="form-control" placeholder="sacco name" required/>
+			<input type="text" ng-model="username" class="form-control" placeholder="user name" required/>
+			<input type="text" ng-model="userphone" class="form-control" placeholder="user phone" required/>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Join Sacco</button>
+			</span>
+		</div>
+	</form>
+	
+	<form class="form" name="productForm" ng-submit="showProduct(productForm)">
+		<div class="input-group">
+			<input type="text" ng-model="name" class="form-control" placeholder="sacco name" required/>
+			<!--
+			<input type="text" ng-model="product" class="form-control" placeholder="product name" required/>
+			<input type="number" ng-model="price" class="form-control" placeholder="product price" required/>
+			<input type="number" ng-model="quantity" class="form-control" placeholder="product quantity" required/>
+			-->
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Show Product</button>
+			</span>
+		</div>
+	</form>
+
 </div>

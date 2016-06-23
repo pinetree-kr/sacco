@@ -34,10 +34,10 @@ SaccoSchema
   .path('name')
   .validate(function(value, respond) {
     var self = this;
-    this.constructor.findOne({name: value}, function(err, user) {
+    this.constructor.findOne({name: value}, function(err, sacco) {
       if(err) throw err;
-      if(user) {
-        if(self.id === user.id) return respond(true);
+      if(sacco) {
+        if(self.id === sacco.id) return respond(true);
         return respond(false);
       }
       respond(true);

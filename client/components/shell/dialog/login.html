@@ -1,0 +1,28 @@
+<md-dialog aria-label="List dialog">
+  <md-dialog-content>
+    <form name="form">
+      <md-input-container>
+        <label>Phone#</label>
+        <input required name="phone" ng-model="phone">
+        <div ng-messages="form.phone.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>Password</label>
+        <input required name="password" ng-model="password">
+        <div ng-messages="form.password.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions">
+    <md-button ng-click="closeDialog()" class="md-primary">
+      Cancel
+    </md-button>
+    <md-button ng-click="login(form)" class="md-primary">
+      Log In
+    </md-button>
+  </div>
+</md-dialog>
