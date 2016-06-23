@@ -2,7 +2,8 @@
 	.angular-google-map-container { height: 400px; }
 </style>
 <div ng-include="'components/shell/shell.html'"></div>
-<div class="col-md-12" data-ng-controller="SaccoCtrl">
+<div class="col-md-12">
+	<!--
 	<form class="form" name="findForm" ng-submit="find(findForm)">
 		<div class="input-group">
 			<input type="text" ng-model="name" class="form-control" placeholder="sacco name" required/>
@@ -36,15 +37,36 @@
 	<form class="form" name="productForm" ng-submit="showProduct(productForm)">
 		<div class="input-group">
 			<input type="text" ng-model="name" class="form-control" placeholder="sacco name" required/>
-			<!--
-			<input type="text" ng-model="product" class="form-control" placeholder="product name" required/>
-			<input type="number" ng-model="price" class="form-control" placeholder="product price" required/>
-			<input type="number" ng-model="quantity" class="form-control" placeholder="product quantity" required/>
-			-->
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="submit">Show Product</button>
 			</span>
 		</div>
 	</form>
+	-->
+	<p><label>Sacco info.</label></p>
+	<div class="input-group">
+		<lable>Sacco : {{sacco.name}}</lable>
+	</div>
+	<div class="input-group">
+		<lable>Coord : {{sacco.coord}}</lable>
+	</div>
+	<div class="input-group">
+		<lable>Administrator : {{sacco.admin.name}}({{sacco.admin.phone}})</lable>
+	</div>
+
+	<p><label>User</label></p>
+
+	<form class="form" name="joinForm" ng-submit="join(joinForm)">
+		<div class="input-group">
+			<input type="text" ng-model="name" class="form-control" placeholder="user name" required/>
+			<input type="text" ng-model="phone" class="form-control" placeholder="user phone" required/>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Join Sacco</button>
+			</span>
+		</div>
+	</form>
+	<div class="input-group" ng-repeat="user in sacco.users">
+		<label>{{user.name}}({{user.phone}})</label>
+	</div>
 
 </div>

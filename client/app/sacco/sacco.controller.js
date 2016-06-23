@@ -1,7 +1,55 @@
 'use strict';
 
 angular.module('saccoApp')
-	.controller('SaccoCtrl', function ($scope, sacco, $http) {
+	.controller('SaccoCtrl', function ($scope, sacco, $http, Authentication) {
+		$scope.authentication = Authentication.get();
+		
+		sacco.get({sacco:$scope.authentication.sacco}, function(res){
+			$scope.sacco = res;
+			//console.log(res);
+		}, handleError);
+
+		$scope.user = {};
+		$scope.join = function(form){
+			if(form.$valid){
+				$scope.user.name = $scope.name;
+				$scope.user.phone = $scope.phone;
+
+				getUser($scope.user, function(user){
+					var arr = $scope.sacco.users.filter(function(item){
+						return item._id === user._id;
+					});
+					if(arr.length===0){
+						joinSacco($scope.sacco, user, function(res){
+							$scope.sacco = res;
+						});
+					}else{
+						console.log('already joined');
+						alert('already joined');
+					}
+					//sacco.users.push(user._id);
+
+				});
+			}
+		};
+
+		var getUser = function(data, next){
+			$http.post('/api/users/find', data)
+			.success(next)
+			.error(handleError);
+		}
+
+		var joinSacco = function(sacco, user, next){
+			$http.post('/api/saccos/'+sacco._id+'/join', {
+				user: user._id
+			})
+			.success(next)
+			.error(handleError);
+		}
+
+		//sacco.get({})
+
+		/*/
 		$scope.sacco = {
 			name:null,
 			coord:{
@@ -69,15 +117,7 @@ angular.module('saccoApp')
 							return item._id === user._id;
 						});
 						if(arr.length===0){
-							/*/
-							$http.post('/api/saccos/'+sacco._id+'/join',{
-								user:user._id
-							})
-							.success(function(sacco){
-								console.log(sacco);
-							})
-							.error(handleError);
-							/**/
+							
 							joinSacco(sacco, user, function(sacco){
 								console.log(sacco);
 							});
@@ -137,7 +177,7 @@ angular.module('saccoApp')
 			.success(next)
 			.error(handleError);
 		}
-
+		/**/
 		var handleError = function(err){
 			console.error(err);
 			if(err.data){
@@ -146,6 +186,6 @@ angular.module('saccoApp')
 			else alert(err);
 			
 		}
-
+	
 
 	});
